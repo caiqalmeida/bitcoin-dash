@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+
+import { SignupParameters } from "../../../../types/api";
 
 const useStyles = makeStyles({
   loginBox: {
@@ -28,10 +30,14 @@ const useStyles = makeStyles({
 });
 
 interface Props {
-  setIsSigningUp: (a: boolean) => void;
+  register: (a: SignupParameters) => void;
 }
 
 export const SignUpForm = (props: Props) => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   const classes = useStyles();
 
   return (
@@ -42,31 +48,40 @@ export const SignUpForm = (props: Props) => {
         required
         label="Name"
         type="text"
-        defaultValue=""
         variant="outlined"
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+          setName(e.target.value)
+        }
+        value={name}
       />
       <TextField
         className={classes.textField}
         required
         label="E-mail"
         type="email"
-        defaultValue=""
         variant="outlined"
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+          setEmail(e.target.value)
+        }
+        value={email}
       />
       <TextField
         className={classes.textField}
         required
         label="Password"
         type="password"
-        defaultValue=""
         variant="outlined"
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+          setPassword(e.target.value)
+        }
+        value={password}
       />
       <Button
         className={classes.signupButton}
         variant="contained"
         color="primary"
         size="large"
-        onClick={() => props.setIsSigningUp(false)}
+        onClick={() => props.register({ name, email, password })}
       >
         Sign Up
       </Button>

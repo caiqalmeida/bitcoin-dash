@@ -1,11 +1,18 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import { useHistory } from "react-router-dom";
 
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 
 import { SignInForm } from "./components/SignInForm";
 import { SignUpForm } from "./components/SignUpForm";
+
+import { SigninParameters, SignupParameters } from "../../types/api";
+import { signIn, signUp } from "../../services/api";
+import { setUserToken } from "../../utils/storage";
+
+import { ROUTES } from "../../constants/routes";
 
 const useStyles = makeStyles({
   pageContainer: {
@@ -19,6 +26,36 @@ const useStyles = makeStyles({
 export const Login = () => {
   const [isSigningUp, setIsSigningUp] = useState(false);
   const classes = useStyles();
+  const history = useHistory();
+
+  function register({ name, email, password }: SignupParameters) {
+    signUp({ name, email, password }).then(
+      (res) => {
+        alert(`${res.name} was registered`);
+        setIsSigningUp(false);
+      },
+      (error) => {
+        alert(
+          `It was not possible register the user, verify the inserted data. ${error}`
+        );
+      }
+    );
+  }
+
+  function login({ email, password }: SigninParameters) {
+    signIn({ email, password }).then(
+      (res) => {
+        alert("Login Successful");
+        setUserToken(res);
+        history.push(ROUTES.HOME);
+      },
+      (error) => {
+        alert(
+          `It was not possible to login, verify the inserted data. ${error}`
+        );
+      }
+    );
+  }
 
   return (
     <Grid
@@ -30,9 +67,9 @@ export const Login = () => {
     >
       <Paper className={classes.formContainer} elevation={3}>
         {isSigningUp ? (
-          <SignUpForm setIsSigningUp={setIsSigningUp} />
+          <SignUpForm register={register} />
         ) : (
-          <SignInForm setIsSigningUp={setIsSigningUp} />
+          <SignInForm login={login} setIsSigningUp={setIsSigningUp} />
         )}
       </Paper>
     </Grid>

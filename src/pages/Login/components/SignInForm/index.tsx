@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import { SigninParameters } from "../../../../types/api";
 
 const useStyles = makeStyles({
   loginBox: {
@@ -42,23 +43,34 @@ const useStyles = makeStyles({
 });
 
 interface Props {
+  login: (a: SigninParameters) => any;
   setIsSigningUp: (a: boolean) => void;
 }
 
 export const SignInForm = (props: Props) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   const classes = useStyles();
+
+  async function handleSignin() {
+    const isSignedIn = await props.login({ email, password });
+  }
 
   return (
     <Box p={3} className={classes.loginBox}>
-      <Typography className={classes.title}>Sign Up</Typography>
+      <Typography className={classes.title}>Login</Typography>
       <TextField
         className={classes.textField}
         required
         id="outlined-required"
         label="E-mail"
         type="email"
-        defaultValue=""
         variant="outlined"
+        value={email}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+          setEmail(e.target.value)
+        }
       />
       <TextField
         className={classes.textField}
@@ -66,14 +78,18 @@ export const SignInForm = (props: Props) => {
         id="outlined-required"
         label="Password"
         type="password"
-        defaultValue=""
         variant="outlined"
+        value={password}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+          setPassword(e.target.value)
+        }
       />
       <Button
         className={classes.signinButton}
         variant="contained"
         color="primary"
         size="large"
+        onClick={handleSignin}
       >
         Sign in
       </Button>
