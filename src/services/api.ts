@@ -7,25 +7,15 @@ const api = axios.create({
 });
 
 export function signUp({ name, email, password }: SignupParameters) {
-  return api
-    .post("/account", { name, email, password })
-    .then((res) => {
-      return res.data;
-    })
-    .catch((error) => {
-      throw error;
-    });
+  return api.post("/account", { name, email, password }).then((res) => {
+    return res.data;
+  });
 }
 
 export function signIn({ email, password }: SigninParameters) {
-  return api
-    .post("/login", { email, password })
-    .then((res) => {
-      return res.data.token;
-    })
-    .catch((error) => {
-      throw error;
-    });
+  return api.post("/login", { email, password }).then((res) => {
+    return res.data.token;
+  });
 }
 
 export default api;

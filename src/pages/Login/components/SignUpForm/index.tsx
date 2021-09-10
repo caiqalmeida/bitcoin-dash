@@ -40,6 +40,10 @@ export const SignUpForm = (props: Props) => {
 
   const classes = useStyles();
 
+  function handleSignup() {
+    props.register({ name, email, password });
+  }
+
   return (
     <Box p={3} className={classes.loginBox}>
       <Typography className={classes.title}>Register</Typography>
@@ -81,7 +85,7 @@ export const SignUpForm = (props: Props) => {
         variant="contained"
         color="primary"
         size="large"
-        onClick={() => props.register({ name, email, password })}
+        onClick={handleSignup}
       >
         Sign Up
       </Button>

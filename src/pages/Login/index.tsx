@@ -29,32 +29,30 @@ export const Login = () => {
   const history = useHistory();
 
   function register({ name, email, password }: SignupParameters) {
-    signUp({ name, email, password }).then(
-      (res) => {
+    signUp({ name, email, password })
+      .then((res) => {
         alert(`${res.name} was registered`);
         setIsSigningUp(false);
-      },
-      (error) => {
+      })
+      .catch((error) => {
         alert(
           `It was not possible register the user, verify the inserted data. ${error}`
         );
-      }
-    );
+      });
   }
 
   function login({ email, password }: SigninParameters) {
-    signIn({ email, password }).then(
-      (res) => {
+    signIn({ email, password })
+      .then((res) => {
         alert("Login Successful");
         setUserToken(res);
         history.push(ROUTES.HOME);
-      },
-      (error) => {
+      })
+      .catch((error) => {
         alert(
           `It was not possible to login, verify the inserted data. ${error}`
         );
-      }
-    );
+      });
   }
 
   return (

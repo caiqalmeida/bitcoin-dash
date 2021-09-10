@@ -53,8 +53,8 @@ export const SignInForm = (props: Props) => {
 
   const classes = useStyles();
 
-  async function handleSignin() {
-    const isSignedIn = await props.login({ email, password });
+  function handleSignin() {
+    props.login({ email, password });
   }
 
   return (

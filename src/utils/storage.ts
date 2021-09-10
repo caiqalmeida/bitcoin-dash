@@ -1,4 +1,4 @@
-const STORAGE_KEY = "user_token";
+const STORAGE_KEY = "user";
 
 export const getUserToken = () =>
   JSON.parse(localStorage.getItem(STORAGE_KEY) ?? "");
