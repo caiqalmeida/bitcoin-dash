@@ -12,7 +12,7 @@ import { SigninParameters, SignupParameters } from "../../types/api";
 import { signIn, signUp } from "../../services/api";
 import { setUserToken } from "../../utils/storage";
 
-import { ROUTES } from "../../constants/routes";
+import { paths } from "../../routes/routes";
 
 const useStyles = makeStyles({
   pageContainer: {
@@ -46,7 +46,7 @@ export const Login = () => {
       .then((res) => {
         alert("Login Successful");
         setUserToken(res);
-        history.push(ROUTES.HOME);
+        history.push(paths.home);
       })
       .catch((error) => {
         alert(
