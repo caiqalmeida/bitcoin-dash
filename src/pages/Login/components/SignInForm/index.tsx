@@ -43,7 +43,7 @@ const useStyles = makeStyles({
 });
 
 interface Props {
-  login: (a: SigninParameters) => any;
+  login: (a: SigninParameters) => void;
   setIsSigningUp: (a: boolean) => void;
 }
 

@@ -15,7 +15,7 @@ const Routes = () => {
             auth = false,
             Route = auth ? PrivateRoute : PublicRoute,
           }) => (
-            <Route path={path} key={`route-${path}`}>
+            <Route path={path} exact key={`route-${path}`}>
               <Page />
             </Route>
           )
