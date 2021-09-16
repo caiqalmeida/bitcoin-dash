@@ -1,15 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import Container from "@material-ui/core/Container";
 
 import { Card } from "./components/Card";
 
+import { getBalance } from "../../services/api";
+import { toCurrency } from "../../utils/currency";
+
 export const Home = () => {
+  const [balance, setBalance] = useState(0);
+
+  async function loadBalance() {
+    const initialBalance = await getBalance();
+    setBalance(initialBalance);
+  }
+
+  useEffect(() => {
+    loadBalance();
+  }, []);
   return (
     <Container maxWidth="sm">
       <Card
         title="Saldo da conta"
-        values={["R$ 150,00"]}
+        values={[toCurrency(balance)]}
         btnText="Call to action"
       />
 

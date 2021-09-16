@@ -27,7 +27,11 @@ export const Card = (props: Props) => {
   const classes = useStyles();
 
   return (
-    <MaterialCard variant="outlined" className={classes.CardContainer}>
+    <MaterialCard
+      variant="outlined"
+      className={classes.CardContainer}
+      key={Math.random()}
+    >
       <CardContent>
         <Typography variant="h5" component="h2" gutterBottom>
           {props.title}
