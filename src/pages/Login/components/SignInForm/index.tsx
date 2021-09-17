@@ -63,7 +63,7 @@ export const SignInForm = (props: Props) => {
       <TextField
         className={classes.textField}
         required
-        id="outlined-required"
+        id="input-email"
         label="E-mail"
         type="email"
         variant="outlined"
@@ -75,7 +75,7 @@ export const SignInForm = (props: Props) => {
       <TextField
         className={classes.textField}
         required
-        id="outlined-required"
+        id="input-password"
         label="Password"
         type="password"
         variant="outlined"

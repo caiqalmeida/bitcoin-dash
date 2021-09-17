@@ -9,8 +9,8 @@ import { SignInForm } from "./components/SignInForm";
 import { SignUpForm } from "./components/SignUpForm";
 
 import { SigninParameters, SignupParameters } from "../../types/api";
-import { signIn, signUp } from "../../services/api";
-import { setUserToken } from "../../utils/storage";
+import { signIn, signUp, authorize } from "../../services/api";
+import { setUserToken } from "../../services/storage";
 
 import { paths } from "../../routes/routes";
 
@@ -46,6 +46,7 @@ export const Login = () => {
       .then((res) => {
         alert("Login Successful");
         setUserToken(res);
+        authorize(res);
         history.push(paths.home);
       })
       .catch((error) => {
